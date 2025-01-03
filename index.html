@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chor Raja Sipahi Mantri</title>
+</head>
+<body>
+  <h1>Chor, Raja, Sipahi, Mantri Game</h1>
+  <p id="status">Connecting to game...</p>
+  <input id="input" type="text" placeholder="Enter message" />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:8080');
+
+    socket.onopen = () => {
+      document.getElementById('status').innerText = 'Connected to the game!';
+    };
+
+    socket.onmessage = (event) => {
+      alert(event.data); // Display messages from server
+    };
+
+    function sendMessage() {
+      const input = document.getElementById('input').value;
+      socket.send(input);
+      document.getElementById('input').value = '';
+    }
+  </script>
+</body>
+</html>
